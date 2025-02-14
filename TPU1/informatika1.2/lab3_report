@@ -1,0 +1,137 @@
+Системы счисления
+
+Цель работы 
+Написать и отладить программу с различными системами счисления, изучив вместе с этим способы представления рациональных чисел в других системах счисления. Научиться переводить числа из некоторой системы счисления в десятичную, использую схему Горнера.
+Задание
+Вариант № 5
+Задание 1.
+Ввести с клавиатуры основание системы счисления p: 2<=p<=16 и целое положительное
+число N в десятичной системе счисления. Вывести представление числа N в p-ичной
+системе счисления. Пример вывода ответа:
+106(10) = 6a(16)
+Задание 2.
+Ввести с клавиатуры основание системы счисления p: 2<=p<=16 и последовательность
+символов ‒цифр этой системы счисления c_m..c_0. Представить число c_m..c_0 (p) в
+десятичной системе счисления, используя схему Горнера. Пример вывода ответа:
+106(7) = 55(10)
+Задание 3.
+Ввести с клавиатуры основание системы счисления p: 2<=p<=16 и два целых
+положительных числа N, M в десятичной системе счисления. Реализовать перевод этих
+чисел в p-ичную систему счисления и их сложение «в столбик» в этой же системе
+счисления. Вывести числа и их сумму. Пример вывода ответа:
+11(10) + 12(10) = 102(3) + 110(3) = 212(3)
+Задание 4.
+Вывести на экран все числа, содержащие шесть значащих цифр в двоичной записи, в
+которых количество единиц больше количества нулей. Числа выводить в двоичном и
+десятичном виде.
+
+
+Текст программы
+Задание 1.
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned long long int p, n; //radix and unsigned integer
+    cout << "Enter radix 2<=p<=16: p="; cin >> p; //entering radix
+    cout << "Enter decimal integer >0: N="; cin >> n; //entering decimal unsigned integer 
+    unsigned long long int res = 0; //18 446 744 073 709 551 615 - max volume of result in decimal format
+    unsigned long long int i, k; //index of tetrads and rest of N
+    for (i = 1, k = n; k > 0; i*=16, k /= p) {
+        res += (k % p) * i; //conversion in “BCD”
+    }
+    cout << n << "(" << 10 << ") = " << hex << res << "(" << p << ")" << endl; //output
+    return 0;
+}
+ 
+Задание 2.
+#include <iostream>
+using namespace std;
+
+int main() {
+    int p, i = -1; char c ='q';
+    int res = 0;
+    char my_integer[1000] = { '\0' };//save symbols array
+    cout << "Enter radix 2<=p<=16: p="; cin >> p; //entering radix
+    cin.ignore(); //ignore \n
+    cout << "Enter your integer >0 (please use lower case): N="; //entering unsigned integer 
+    cin.get(c); //char-by-char input while c != \n
+    do {
+        i += 1; //increment index
+        my_integer[i] = c; //save symbol to array
+        res *= p; //using horner diagram to convert integer from p to dec
+        if ((c >= ‘0’) && (c <= ‘9’)) { //check if symbol is integer
+            res += (c - '0');
+        }
+        if ((c >= ‘a’) && (c <= ‘f’)) { //check if symbol is letter
+            res += (c - 'a' + 10);
+        }
+        cin.get(c);
+    } while (c != '\n');
+    cout << my_integer << "(" << p << ") = " << res << "(" << 10 << ")"; //output
+    return 0;
+}
+ 
+
+ Задание 3.
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned long long int p, n, m; //radix and unsigned integer
+    cout << "Enter radix 2<=p<=16: p="; cin >> p; //entering radix
+    cout << "Enter 2 decimal integer >0: N="; cin >> n; cout << "\t\t\t    M="; cin >> m; //entering decimal unsigned integers 
+    unsigned long long int summand1 = 0, summand2 = 0; //summands in BCD
+    unsigned long long int i, k, l; //index of N's and M's digit; rest of N and M
+    unsigned long long int res = 0;
+    int carry = 0;
+    for (i = 1, k = n, l = m; k > 0 || l > 0; i *= 16, k /= p, l /= p) {
+        summand1 += (k % p) * i; //conversion in "BCD"
+        summand2 += (l % p) * i; //conversion in "BCD"
+        res += ((k % p) + (l % p) + carry)%p * i; //sum with carry
+        if (((k % p) + (l % p) + carry) >= p) {
+            carry = 1;
+        }
+        else {
+            carry = 0;
+        }
+    }
+    res += carry * i;
+
+    cout << n << "(" << 10 << ") + " << m << "(" << 10 << ") = " << hex << summand1 << dec << "(" << p << ") + " << hex << summand2 << dec << "(" << p << ") = " << hex << res << dec << "(" << p << ")" << endl; //output;
+    return 0;
+} 
+
+Задание 4.
+#include <iostream>
+using namespace std;
+
+int main() {
+    //range for task 100000=32 -- 111111=63
+    unsigned long long one = 0; // it will be 32 -- 100000 -- 0001 0000 0000 0000 0000 0000
+    unsigned long long k, j; // k is decimal 32, j is digit
+    for (j = 0, k = 32; k > 0; j++, k /= 2) {
+        one += (k % 2) * pow(16, j); //conversion in BCD
+    }
+    cout << "Decimal number\t\t" << "Binary number" << endl;
+    for (unsigned long long i = 32; i <= 63; i++) {
+        unsigned long long res = 0, k, j; //res is BCD, k is decimal, j is digit
+        for (j = 0, k = i; k > 0; j++, k /= 2) {
+            res += (k % 2) * pow(16, j); //conversion in BCD
+        }
+        int count_ones = 0; //counter of ones
+        unsigned long long tmp_one = one; //save of 100000
+        while (tmp_one) {
+            count_ones += bool(res & tmp_one); //bitwise comparison
+            tmp_one /= 16;
+        }
+        if (count_ones >= (6 / 2 + 1)) { //check condition and output
+            cout << i << "\t\t\t" << hex << res << dec << endl;
+        }
+    }
+    return 0;
+}
+
+ 
+Выводы
+В результате лабораторной работы написана и отлажена программа с различными системами счисления. Изучен формат представления рациональных чисел в формате BCD. Изучен способ использования схемы Горнера для перевода числа из некоторой системы счисления в десятичную. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы.

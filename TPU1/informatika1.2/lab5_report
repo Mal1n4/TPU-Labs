@@ -1,0 +1,468 @@
+Указатели и массивы
+
+Цель работы 
+Написать и отладить программы с использованием одномерных и двумерных массивов, научиться использовать указатели для управления памятью компьютера на кучах. Автоматизировать процесс умножения матриц.
+Задание
+Вариант №5
+Задание 1.
+Ввести значения целых переменных a и b. «Направить» два указателя на эти переменные. Поменять местами значения переменных a и b через их указатели. Затем с помощью указателя увеличить максимальную переменную на 2 и прибавить к ней минимальную. Вывести на экран a и b.
+Задание 2.
+Задать в программе константу N. Считать с клавиатуры N чисел и записать их в массив Z(N). Из полученного массива Z(N) составить и вывести на экран новый массив P(M), включив в него только числа из Z, которые принадлежат интервалу [-8;3], при этом положительные числа уменьшить в 2 раза, отрицательные – возвести в квадрат, нулевые – оставить без изменения. Все числа вне этого интервала просуммировать и вывести на экран сумму. Вывести на экран массив P.
+Задание 3.
+Считать с клавиатуры целое число n. Затем ввести с клавиатуры n целых чисел и сохранить их в массив. Переставить числа в массиве так, чтобы сначала шли отрицательные, а потом – положительные.
+Пример (при n = 5):
+Исходный массив: 	  2   3 -14 -10  17
+После обработки:	-10 -14   3   2  17
+Задание 4.
+Считать с клавиатуры число N≥3. Ввести N целых чисел с клавиатуры и сохранить их в массиве Z(N). Проверить, существует ли в массиве убывающая последовательность нечетных чисел, состоящая из идущих подряд элементов и содержащая больше двух элементов. Если да, вывести последовательность, ее длину и номер первого элемента. Иначе вывести сообщение о том, что прогрессия не существует.
+Задание 5.
+	Пиком в массиве из вещественных чисел назовем элемент массива, который больше обоих соседних элементов. Пик называется опасным, этот элемент в k раз больше максимального из всех элементов массива, кроме пиков (здесь k ‒ целое число). Подсчитать количество опасных пиков спадов в считанном с клавиатуры массиве длины n, если n и k указывается пользователем.
+Задание 6.
+Пользователь вводит числа n и m (n*m<100). Создать массив A[n][m] и заполнить его по диагоналям. Вывести полученный массив, на каждое число отвести три символа.
+Пример.
+ 
+Задание 7.
+Ввести с клавиатуры числа N, M и массив Z(N)(M). Пройтись по всем строкам массива.  Если в строке есть элемент, равный нулю, найти произведение элементов, расположенных слева от него и их количество. Этим количеством заменить первый нулевой элемент, а произведение записать в массив В(K), K≤N. Вывести массивы B и Z. 
+Задание 8.
+Ввести 4 числа - размерности двух матриц. Если возможно умножить первую матрицу на вторую, реализовать считывание матриц, их умножение и вывод на экран, иначе вывести сообщение о невозможности их умножения.
+
+
+Текст программы
+Задание 1.
+#include <iostream>
+using namespace std;
+int main() {
+    int a, b;
+    cout << "Enter A and B decimal integers: "; cin >> a >> b;
+    int* p_a = &a;
+    int* p_b = &b;
+    a = *p_a ^ *p_b;
+    b = *p_a ^ *p_b;
+    a = *p_a ^ *p_b;
+    if (*p_a >= *p_b) {
+        *p_a += 2 + *p_b;
+    }
+    else {
+        *p_b += 2 + *p_a;
+    }
+    cout << "A and B after revers and after adding to the maximum 2 and minimum: " << a <<" " << b;
+    return 0;
+}  
+Задание 2.
+//C style
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n; //size of array Z
+    cout << "Enter N decimal integer - size of array Z: "; cin >> n;
+    cout << "Enter N decimal integers: ";
+    int* z = (int*)calloc(n, sizeof(int)); //dynamic memmory allocation of Z - input array
+    for (int i = 0; i < n; i++) {
+        cin >> *(z + i);
+    }
+    float* p = (float*)calloc(1, sizeof(float));; //dynamic memmory allocation of P - result array
+    int m = 0; //size of array P
+    int rest_of_z = 0; //Sum of Z's elements outside [-8;3]
+    for (int i = 0; i < n; i++) {
+        if (*(z + i) <= 3 && *(z + i) >= -8) {
+            m += 1;
+            p = (float*)realloc(p, m * sizeof(float)); //re-allocation array P
+            *(p + m - 1) = (float)*(z + i); //adding elements in array P
+            if (*(p + m-1) > 0) { //if element <0 divide it by 2
+                *(p + m-1) /= 2;
+                continue;
+            }
+            if (*(p + m-1) < 0) { //if element <0 square it  
+                *(p + m-1) *= *(p + m - 1);
+                continue;
+            }
+        }
+        else {
+            rest_of_z += *(z + i);
+        }
+    }
+    cout << "Sum of Z's elements outside [-8;3]: " << rest_of_z << endl;
+    cout << "Result array P: ";
+    for (int i = 0; i < m; i++) {
+        cout << *(p + i) << " ";
+    }cout << endl;
+    free(p);
+    free(z);
+    return 0;
+} 
+//C++ style	
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int n = 6; //size of array Z
+    cout << "Enter " << n << " decimal integers : ";
+    int z[n]; //memmory allocation of Z - input array
+    int m = 0; //size of array P
+    for (int i = 0; i < n; i++) {
+        cin >> z[i];
+        if (z[i] <= 3 && z[i] >= -8) {
+            m += 1;
+        }
+    }
+    float* p = new float[m]; //dynamic memmory allocation of P - result array
+    int rest_of_z = 0; //sum of Z's elements outside [-8;3]
+    int j = 0;
+    for (int i = 0; i < n; i++) {
+        if (z[i] <= 3 && z[i] >= -8) {
+            p[j] = (float)z[i]; //adding elements in array P
+            if (p[j] > 0) { //if element <0 divide it by 2
+                p[j] /= 2;
+                j += 1;
+                continue;
+            }
+            if (p[j] < 0) { //if element <0 square it  
+                p[j] *= p[j];
+                j += 1;
+                continue;
+            }
+            j += 1;
+        }
+        else {
+            rest_of_z += z[i];
+        }
+    }
+    cout << "Sum of Z's elements outside [-8;3]: " << rest_of_z << endl;
+    cout << "Result array P: ";
+    for (int i = 0; i < m; i++) {
+        cout << p[i] << " ";
+    }cout << endl;
+delete[]p;
+    return 0;
+}
+
+ 
+ Задание 3.
+#include <iostream>
+using namespace std;
+
+
+int main() {
+    int n; //size of array Z
+    cout << "Enter N decimal integer - size of array: "; cin >> n;
+    int* a = new int[n]; //dynamic memmory allocation of array
+    cout << "Enter N decimal integers\n";
+    cout << "Original array: ";
+    for (int i = 0; i < n; i++) { //inputting elements of array
+        cin >> a[i];
+    }
+    int negative_counter = 0;
+    for (int i = 0; i < n; i++) {
+        if (a[i] < 0) { //moving negative elements to beggining of array
+            swap(a[0 + negative_counter], a[i]);
+            negative_counter += 1;
+        }
+    }
+    cout << "After processing array: ";
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
+    delete[]a;
+    return 0;
+} 
+Задание 4.
+#include <iostream>
+using namespace std;
+
+
+int main() {
+    int n; //size of array Z
+    cout << "Enter N decimal integer - size of array Z ( >= 3): "; cin >> n;
+    int* z = new int[n]; //dynamic memory allocation of array
+    cout << "Enter N decimal integers array's elements: ";
+    for (int i = 0; i < n; i++) {//inputting elements of array
+        cin >> z[i];
+    }
+    int sequence_length = 1;
+    int previous_ind = 0;
+    for (int i = 1; i < n; i++) {
+        if ((z[i] % 2) && (z[i] < z[i-1])) { //check if current element < previous and odd
+            sequence_length += 1;
+            previous_ind = i;
+        }
+        else {
+            if (sequence_length < 2) {
+                sequence_length = 1;
+            }
+            else {
+                break;
+            }
+        }
+    }
+    if (sequence_length > 2) { //output info if sequence exists
+        cout << "|Array: ";
+        for (int i = previous_ind + 1 - sequence_length; i < previous_ind + 1; i++) {
+            cout << z[i] << " ";
+        }cout << endl;
+        cout << "|Length: " << sequence_length << endl;
+        cout << "|First element index: " << previous_ind + 1 - sequence_length << endl;
+    }
+    else {
+        cout << "Sequence isn't exist\n";
+    }
+    delete[]z;
+    return 0;
+} 
+Задание 5. 
+#include <iostream>
+using namespace std;
+
+
+int main() {
+    int n; //size of array Z
+    int k; //dangerous peak coefficient
+    int d_p_counter = 0; //dangerous peaks counter
+    cout << "Enter N decimal integer - size of array: "; cin >> n;
+    float* a = new float[n];
+    cout << "Enter N decimal integers - array's elements: ";
+    for (int i = 0; i < n; i++) { //inputting elements of array
+        cin >> a[i];
+    }
+    cout << "Enter K integer - dangerous peak coefficient: "; cin >> k;
+    float* p = new float[n]; //array of peaks
+    float maximum = a[0]; //max element of array
+	p[0] = 0; p[n-1] = 0;
+    for (int i = 1; i < n - 1; i++) {
+        if ((a[i] > a[i + 1]) && (a[i] > a[i - 1])) { // checking current element is peak
+            p[i] = a[i];
+        }
+        else { // else append to array of peaks zero and check max element 
+            p[i] = 0;
+            if (a[i] > maximum) {
+                maximum = a[i];
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        if (p[i] >= (k * maximum)) {
+            d_p_counter += 1;
+        }
+    }
+    cout << "Number of dangerous peaks in array: " << d_p_counter << endl;
+    delete[]a;
+    delete[]p;
+    return 0;
+} 
+
+Задание 6.
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+    int n; //number of rows of array
+    int m; //number of columns of array
+    int i, j;//rows and columns indexes
+    cout << "Enter N - number of rows and M - number of columns: "; cin >> n >> m;
+    int** a = new int*[n]; //dynamic allocation of array
+    for (i = 0; i < n; i++) {
+        a[i] = new int[m];
+        for (j = 0; j < m; j++) { //filling array with -1 elements
+            a[i][j] = -1;
+        }
+    }
+
+    int num = 0; //current number in array
+    for (j = 0; j < m; j++) { //beggining diagonal with the first row elements
+        i = 0;
+        int c = j;
+        do {
+            a[i][c] = num;
+            num += 1;
+            c--;
+            i++;
+        } while (c >= 0 && i < n); //while current element doesn't reach left edge and bottom edge
+    }
+
+    for (i = 1; i < n; i++) { //begginig diagonal with the last column elements
+        j = m - 1;
+        int c = i;
+        do {
+            a[c][j] = num;
+            num += 1;
+            c++;
+            j--;
+        } while (c<n && j>=0); //while current element doesn't reach bottom edge and left edge 
+    }
+
+    for (i = 0; i < n; i++) { //output
+        for (j = 0; j < m; j++) {
+            cout << setw(3) << a[i][j] << " ";
+        }cout << endl;
+    }
+    delete[]a;
+    return 0;
+} 
+Задание 7. 
+//C style
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+    int n; //number of rows of array Z
+    int m; //number of columns of array Z
+    int i, j;//rows and columns indexes
+    int k = 0; //length of B array, array of mults
+    cout << "Enter N - number of rows and M - number of columns (N*M<100) of array Z: "; cin >> n >> m;
+    cout << "Enter elements of array Z:\n";
+    int** z = new int*[n]; //dynamic allocation of array
+    int* b = (int*)calloc(1, sizeof(int));
+    for (i = 0; i < n; i++) {
+        z[i] = new int[m];
+        for (j = 0; j < m; j++) { //filling array with input elements
+            cin >> z[i][j];
+        }
+    }
+    long long mult = 1; //result of multiplication
+    for (i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (z[i][j] == 0) { //checking zero in row
+                z[i][j] = j; //replace zero with it's index
+                b[k] = mult*(j>0); //apppending in array B result of multiplication of elements before zero
+                k += 1; //incrementing B array's index 
+                b = (int*)realloc(b, (k + 1) * sizeof(int)); //reallocation memmory for array B
+                mult = 1; //return mult in initial state
+                break; //moving to the next row
+            }
+            mult *= z[i][j]; //in row elements multiplication
+        }        
+    }
+    cout << "|New array Z:\n"; //output
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            cout << setw(3) << z[i][j] << " ";
+        }cout << endl;
+    }
+    cout << endl;
+    cout << "|Array B: "; //output
+    for (i = 0; i < k; i++) {
+        cout << b[i] << " ";
+    }cout << endl;
+
+    delete[]z;
+    free(b);
+    return 0;
+} 
+//C++ style
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+    int n; //number of rows of array Z
+    int m; //number of columns of array Z
+    int i, j;//rows and columns indexes
+    int k = 0; //length of B array, array of mults
+    cout << "Enter N - number of rows and M - number of columns (N*M<100) of array Z: "; cin >> n >> m;
+    cout << "Enter elements of array Z:\n";
+    int** z = new int* [n]; //dynamic allocation of array
+    bool zero = 0;
+    for (i = 0; i < n; i++) {
+        z[i] = new int[m];
+        for (j = 0; j < m; j++) { //filling array with input elements
+            cin >> z[i][j];
+            if (z[i][j] == 0) zero = 1;
+        }
+        if (zero) k += 1;
+        zero = 0;
+    }
+    int* b = new int[k];
+    long long mult = 1; //result of multiplication
+    int r = 0; // b index
+    for (i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (z[i][j] == 0) { //checking zero in row
+                z[i][j] = j; //replace zero with it's index
+                b[r] = mult * (j > 0); //apppending in array B result of multiplication of elements before zero
+                r += 1; //incrementing B array's index 
+                mult = 1; //return mult in initial state
+                break; //moving to the next row
+            }
+            mult *= z[i][j]; //in row elements multiplication
+        }
+    }
+    cout << "|New array Z:\n"; //output
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            cout << setw(3) << z[i][j] << " ";
+        }cout << endl;
+    }
+    cout << endl;
+    cout << "|Array B: "; //output
+    for (i = 0; i < k; i++) {
+        cout << b[i] << " ";
+    }cout << endl;
+
+    delete[]z;
+    delete[]b;
+    return 0;
+}
+ 
+Задание 8. 
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+    int n; //number of rows of array M1
+    int m; //number of columns of array M1
+    int k; //number of rows of array M2
+    int l; //number of columns of array M2
+    int i, j; //rows and columns indexes
+    int u = 0; //right array's columns index
+    cout << "Enter N - number of rows and M - number of columns of array M1 (n*m>0): "; cin >> n >> m;
+    cout << "Enter elements of array M1:\n";
+    int** m1 = new int*[n]; //dynamic allocation of array
+    for (i = 0; i < n; i++) {
+        m1[i] = new int[m];
+        for (j = 0; j < m; j++) { //filling array with input elements
+            cin >> m1[i][j];
+        }
+    }
+    cout << "Enter K - number of rows and L - number of columns of array M2 (k*l>0): "; cin >> k >> l;
+    cout << "Enter elements of array M2:\n";
+    int** m2 = new int* [k]; //dynamic allocation of array
+    for (i = 0; i < k; i++) {
+        m2[i] = new int[l];
+        for (j = 0; j < l; j++) { //filling array with input elements
+            cin >> m2[i][j];
+        }
+    }
+    int el = 0; //current result array's element 
+    if (m == k) { //checking M1*M2 existence
+        cout << "Result array (M1*M2):\n";
+        for (i = 0; i < n; i++) { //left array's rows
+            for (u = 0; u < l; u++) { //right array's columns
+                for (j = 0; j < m; j++) { //left array's column index and right array's row index
+                    el += m1[i][j] * m2[j][u]; 
+                }
+                cout << el << " "; //outputting
+                el = 0;
+            }
+            cout << endl;
+        }
+    }
+    else {
+        cout << "M1 columns number doesn't equal M2 rows number!\n";
+    }
+
+    delete[]m1;
+    delete[]m2;
+    return 0;
+}
+  
+
+
+Выводы
+В результате лабораторной работы написана и отлажена программа с использованием одномерных и двумерных массивов. Изучены способы работы с динамической памятью, с помощью методов new(), delete(), malloc(), calloc(), realloc(), free(). Изучена работа с указателями памяти, их адресация и разыменование. Реализована простая  программа для умножения матриц. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы. Так как разработка программ производилась в среде Visual Studio 2022, поиск и устранение ошибок кода занял не большое количество времени, благодаря встроенной функции отладки кода. 

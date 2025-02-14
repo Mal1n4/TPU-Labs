@@ -1,0 +1,174 @@
+Функции, рекурсия
+
+Цель работы 
+Ознакомиться со стандартными функциями и рекурсивными функциями, их особенностями в C++. Изучить способы передачи параметров в функции, типы переменных относительно функций (областей видимости).
+Задание
+Вариант №5
+Задание 1.
+Реализовать через функцию одно или несколько заданий из предыдущих лабораторных работ, которые до этого были выполнены без функций. Параметры должны передаваться:
+1.1.	По значению.
+1.2.	По ссылке.
+1.3.	Через указатель.
+Задание 2.
+Реализовать функцию вывода на экран побайтового представления различных переменных, включая float и double. На вход функции должна передаваться длина переменной в байтах и указатель на первый байт переменной как указатель на массив uint8_t или unsigned char. Считать, что данные хранятся в обратном порядке (по младшему адресу хранится младший байт), то есть содержимое массива должно выводиться, начиная с конца. Массив распечатать полностью сначала в шестнадцатеричном, затем в двоичном виде. Перевод в шестнадцатеричную и в двоичную систему можно реализовать также через функции.
+Задание 3.
+Вывод n-го число Фибоначчи через рекурсию
+
+
+Текст программы
+Задание 1.
+С 1 заданием из 5 лабораторной: Ввести значения целых переменных a и b. «Направить» два указателя на эти переменные. Поменять местами значения переменных a и b через их указатели. Затем с помощью указателя увеличить максимальную переменную на 2 и прибавить к ней минимальную. Вывести на экран a и b.
+//lab5 num 1
+#include <iostream>
+using namespace std;
+
+void greedy_swap_values(int a, int b) { //swapping a and b by pointers, increasing max variable on 2 and adding min. parameters are passing by values 
+    int* p_a = &a; //local pointer on reference from value
+    int* p_b = &b;
+    *p_a = *p_a ^ *p_b;
+    *p_b = *p_a ^ *p_b;
+    *p_a = *p_a ^ *p_b;
+    if (*p_a >= *p_b) {
+        *p_a += 2 + *p_b;
+    }
+    else {
+        *p_b += 2 + *p_a;
+    }
+    cout << "Function output(values): " << endl;
+    cout << "A and B after reverse and after adding to the maximum 2 and minimum: " << a << " " << b << endl;
+} //локально объявили указатель на адреса переменных и поменяли (локально) указатели местами
+
+void greedy_swap_refs(int& a, int& b) { //swapping a and b by pointers, increasing max variable on 2 and adding min. parameters are passing by references
+    int p_a = a; //local pointer on reference
+    int p_b = b;
+    p_a = p_a ^ p_b;
+    p_b = p_a ^ p_b;
+    p_a = p_a ^ p_b;
+    if (p_a >= p_b) {
+        p_a += 2 + p_b;
+    }
+    else {
+        p_b += 2 + p_a;
+    }
+    cout << "Function output(references): " << endl;
+    cout << "A and B after reverse and after adding to the maximum 2 and minimum: " << p_a << " " << p_b << endl;
+} /*получили ссылки, создали локальные указатели на эти ссылки и поменяли(локально) указатели местами, причём переданные в функцию ссылки не
+  изменились, это связано с тем, что ссылки храняться в адресах отличных от адресов оригинальной переменной*/
+
+void greedy_swap_pointers(int* a, int* b) { //swapping a and b by pointers, increasing max variable on 2 and adding min. parameters are passing by pointers
+    int* p_a = a; //pointer
+    int* p_b = b;
+    *p_a = *p_a ^ *p_b;
+    *p_b = *p_a ^ *p_b;
+    *p_a = *p_a ^ *p_b;
+    if (*p_a >= *p_b) {
+        *p_a += 2 + *p_b;
+    }
+    else {
+        *p_b += 2 + *p_a;
+    }
+    cout << "Function output(pointers): " << endl;
+    cout << "A and B after reverse and after adding to the maximum 2 and minimum: " << *p_a << " " << *p_b << endl;
+} /*получили указатели на переменные, создали локальные указатели(присвоив им указатели на переменные из ф - ции main), поменяли местами значения
+  в адресах глобально*/
+
+int main() {
+    int a, b;
+    cout << "Enter A and B decimal integers: "; cin >> a >> b;
+    greedy_swap_values(a, b); //passing values
+    cout << "Main output: " << endl;
+    cout << "A and B after reverse and after adding to the maximum 2 and minimum (values): " << a << " " << b << endl;
+    cout << endl;
+    greedy_swap_refs(a, b); //passing references
+    cout << "Main output: " << endl;
+    cout << "A and B after reverse and after adding to the maximum 2 and minimum (references): " << a << " " << b << endl;
+    cout << endl;
+    greedy_swap_pointers(&a, &b); //passing pointers
+    cout << "Main output: " << endl;
+    cout << "A and B after reverse and after adding to the maximum 2 and minimum (pointers): " << a << " " << b << endl;
+    return 0;
+}
+ 
+Задание 2.
+#include <iostream>
+#include <vector>
+#include <bitset>
+using namespace std;
+
+void print_binary(uint8_t* byte) { //вывод в 2 сис-ме
+    cout << bitset <8> (*byte);
+}
+
+void print_hex(uint8_t* byte) { //вывод в 16 сис-ме
+    cout << hex << (bitset <4>(*byte >> 4)).to_ulong();
+    cout << hex << (bitset <4>(*byte)).to_ulong();
+}
+
+void byte_output(size_t bytes_size, uint8_t a[]) { //вывод байтов
+    cout << "\tHex output:" << endl <<"\t";
+    for (int i = bytes_size-1; i >= 0; i--) {
+        print_hex(a + i * (sizeof(uint8_t))); cout << " ";
+    }cout << endl;
+
+    cout << "\tBinary output:" << endl << "\t";
+    for (int i = bytes_size-1; i >= 0; i--) {
+        print_binary(a + i*(sizeof(uint8_t))); cout << " ";
+    }cout << endl;
+}
+
+int main() {
+    int x = 3;
+    float y = 3.0;
+    double z = 3.0;
+    cout << "Output integer in bytes" << endl;
+    byte_output(sizeof(x), (uint8_t*)&x);//привожу указатель на адрес переменной в памяти к типу uint8_t
+    cout << "Output floating in bytes" << endl;
+    byte_output(sizeof(y), (uint8_t*)&y);
+    cout << "Output double in bytes" << endl;
+    byte_output(sizeof(z), (uint8_t*)&z);
+
+    return 0;
+}
+  Задание 3.
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+bool baza_flag = 1; //глобальный флаг для отслеживания первого (базового) прохода по рекурсивной функции
+
+int fibonacci(int n) {
+    static int counter = 0;
+    if (n == 0) {
+        counter += 1;
+        if (baza_flag) cout << "|" << left << setw(13) << counter << " ";
+        baza_flag = 0;
+        counter = 0; /*зануление статичной переменной перед полным проходом каждой рекурсии,
+                       чтобы при следующем вызове fibonacci из main счётчик был обнулён*/
+        return 0;
+    }
+    if (n == 1) {
+        counter += 1;
+        if (baza_flag) cout << "|"<< left << setw(13) << counter << " ";
+        baza_flag = 0;
+        counter = 0;
+        return 1;
+    }
+    counter += 2;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    int n;
+    cout << "Enter N - length of fibonacci series: "; cin >> n;
+    cout << left << setw(15) << "|Num. of calls" << left << setw(15) << "|Fib mem. value" << endl;
+    for (int i = 0; i < n; i++) { //вывод N членов последовательности Фибоначчи 
+        cout <<"|" << left << setw(15) << fibonacci(i) << "\n";
+        baza_flag = 1; /*cообщение в глобальную переменную о том, что совершается 
+                         новый базовый проход (для следующего члена последовательности)*/
+    } cout << endl;
+    return 0;
+}  
+
+Выводы
+В результате выполнения лабораторной работы были изучены стандартные и рекурсивные функции. Особенности взаимодействия со статичными и глобальными переменными при рекурсивном вызове функции. Также особенности передачи параметров в функцию, такие как: через значение, через ссылку, через указатель. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы. Так как разработка программ производилась в среде Visual Studio 2022, поиск и устранение ошибок кода занял не большое количество времени, благодаря встроенной функции отладки кода. 
+

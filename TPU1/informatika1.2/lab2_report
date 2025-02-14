@@ -1,0 +1,154 @@
+Условия и циклы
+
+Цель работы 
+Изучить среду быстрой разработки приложений Visual Studio. Научиться составлять каркас простейшей программы в среде Visual Studio. Написать и отладить программу с условиями и циклами.
+Задание
+Вариант № 7
+	Ввести с клавиатуры целочисленные координаты трёх точек на плоскости. Вывести
+максимальное количество точек, которые лежат в одной четверти. Точки, лежащие
+на осях координат, не относить ни к одной из плоскостей.
+Пример.
+Входные данные:
+2 2
+1 0
+1 1
+Выходные данные:
+2
+	Ввести с клавиатуры вещественные числа x и y вычислить значение выражения:
+f(x,y)={█(ln⁡〖(√(x+y)+2^(x-y))〗,&x>0,x+y≥0;@(x-y+sin⁡(1/(x+y)))/(cos⁡(1/(x+y))+2),&x+y<0;@e^(x-y),в остальных случаях)┤
+	Ввести с клавиатуры координаты точки x и y и проверить принадлежность точки
+закрашенной области (включая границы):
+ 
+	Ввести с клавиатуры значение x. Вычислить приближенно значение функции через
+сумму ряда. Суммирование производить до тех пор, пока модуль очередного
+слагаемого не станет меньше 〖10〗^(-7). Определить точность вычислений с помощью
+встроенных функций <math.h>:
+ln⁡〖(1+x^2 )= x^2- x^4/2+  x^6/3-  x^8/4+⋯,-1<x<1 〗
+
+
+Текст программы
+Задание 1.
+#include <iostream>
+using namespace std;
+
+
+int main() {
+    int counter_1 = 0, counter_2 = 0, counter_3 = 0, counter_4 = 0;
+    cout << "Enter integers coordinates of 3 points on plane: " << endl;
+    for (int i = 0; i < 3; i++) {
+        int x, y; cin >> x >> y; //entering integer coordinates of points 3 times
+        if (x > 0) { 
+            if (y > 0) { //checking if it's 1st quarter
+                counter_1 += 1;
+                continue;
+            }
+            if (y < 0) { //checking if it's 4th quarter
+                counter_4 += 1;
+                continue;
+            }
+        }
+        if (x < 0) {
+            if (y > 0) { //checking if it's 2nd quarter
+                counter_2 += 1;
+                continue;
+            }
+            if (y < 0) { //checking if it's 3rd quarter
+                counter_3 += 1;
+                continue;
+            }
+        }
+    }
+
+    cout << "Max number of points in the same quarter: " << max({counter_1, counter_2, counter_3, counter_4}); //printing max number of points in the same quarter
+
+    return 0;
+}
+ 
+Задание 2.
+#include <iostream>
+#include "math.h"
+using namespace std;
+
+int main() {
+    float x, y;
+    cout << "Enter 2 float numbers: " << endl;
+    cin >> x >> y; //entering 2 float numbers to evaluate expression
+    if ((x > 0) && ((x + y) >= 0)) { //checking 1st condition
+        cout << "Result of expression: " << log(sqrt(x + y) + pow(2, x - y));
+    }
+    else {
+        if ((x + y) < 0) { //checking 2nd condition
+            cout << "Result of expression: " << (x - y + sin(1 / (x + y))) / (cos(1 / (x + y)) + 2);
+        }
+        else {
+            cout << "Result of expression: " << exp(x - y);
+        }
+    }
+} 
+ Задание 3.
+#include <iostream>
+#include "conio.h"
+using namespace std;
+
+bool shaded_area(float x, float y) { //function to check if given point belongs to shaded area
+    if ((y >= (x * x - 5)) && (((y >= 0) && ((y <= (1 - x)) || (y <= 2 - 2 * x * x))) || ((y >= 2 - 2*x*x) && (y <= (1 - x))))) {
+        return 1;
+    }
+    return 0;
+}
+
+int main() {
+    float x, y;
+    do { //cycle to check if given point belongs to shaded area
+        cout << "Enter float coordinates of point on plane x, y: " << endl;
+        cin >> x >> y; //entering 2 float coordinates
+        if (shaded_area(x, y)) { //function call
+            cout << "-Your point belongs to shaded area" << endl;
+            cout << "   to repeat press 'enter'\n   to finish press 'q'" << endl;
+        }
+        else {
+            cout << "-Your point don't belongs to shaded area" << endl;
+            cout << "   to repeat press 'enter'\n   to finish press 'q'" << endl;
+        }
+    } while (_getch() != 'q'); //cycle is repeating while user don't press 'q'
+    return 0;
+}  
+
+Задание 4.
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main() {
+    double x;
+    cout << "Enter float -1 < x < 1: " << endl;
+    cin >> x; //entering variable
+    double x2 = x * x;
+    double logarithm = 0;
+    double summand = x2;
+    int n = 1; // index regular summand 
+    while (fabs(summand) > 1.E-7) { //counting next summand while it's abs more than 10^(-7)
+        logarithm += summand;
+        n += 1;
+        summand = -summand * (n - 1) * x2 / n; //recurrent formula for taylor series of ln(1+x^2)
+    }
+    cout.precision(12); //setting accuracy
+    cout.fixed;
+    cout << "Taylor series for ln(1 + " << x << "^2) is " << logarithm << endl; //printing taylor series for ln(1 + x^2)
+    cout.precision(12); //setting accuracy
+    cout.fixed;
+    cout << "From library math.h ln(1 + " << x << "^2) is " << log(1 + x * x) << endl; //printing function from "math.h" ln(1 + x^2)
+    double abs_accur = logarithm - log(1 + x * x);
+    cout.precision(12); //setting accuracy
+    cout.fixed;
+    cout << "Absolute accuracy of Taylor series for ln(1 + " << x << "^2): " << abs_accur << endl;
+    if (x != 0) {
+        cout.precision(12); //setting accuracy
+        cout.fixed;
+        cout << "Relative accuracy of Taylor series for ln(1 + " << x << "^2): " << abs_accur / log(1 + x * x) << endl;
+    }
+    return 0;
+} 
+
+Выводы
+В результате лабораторной работы изучена среда быстрой разработки приложений Visual Studio. Написана и отлажена программа с условиями и циклами. Изучена возможность нахождения значения функций с помощью ряда Тейлора с ограниченной точностью. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы.

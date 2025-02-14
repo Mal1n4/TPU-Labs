@@ -1,0 +1,811 @@
+Представление данных в компьютере, битовые операции
+
+Цель работы 
+Написать и отладить программы с различными битовыми операциями, изучив вместе с этим способы хранения положительных и отрицательных чисел в памяти компьютера  и низкоуровневые правила сложения чисел. Познакомиться с кодировками символов ASCII и KOI8-R.
+Задание
+Задание 1.
+Ввести с клавиатуры целое число n (0≤N≤maxbits), вывести в десятичном, восьмеричном и шестнадцатеричном виде 2n.
+Задание 2.
+Ввести с клавиатуры десятичное неотрицательное целое число X и номер бита в этом числе n (0≤N≤maxbits), вывести значение, которое хранится в бите с данным номером (в бите может храниться 0 или 1).
+Задание 3.
+Ввести с клавиатуры десятичное неотрицательное целое число X и номер бита в этом числе n (0≤N≤maxbits), присвоить биту с данным номером значение 1, вывести полученное число на экран в десятичном, восьмеричном и шестнадцатеричном виде.
+Задание 4.
+Повторить пункт 3, но присвоить биту с данным номером значение 0, вывести полученное число на экран в десятичном, восьмеричном и шестнадцатеричном виде.
+Задание 5.
+	Повторить пункт 3, но инвертировать бит с данным номером, вывести полученное число на экран в десятичном, восьмеричном и шестнадцатеричном виде.
+Задание 6.
+Ввести с клавиатуры десятичное неотрицательное целое число X, вывести его побитовое представление (вывести число в двоичном виде). Затем ввести с клавиатуры десятичное неотрицательное целое число Y, десятичное неотрицательное целое число M – длину маски (0≤N≤maxbits). Заменить с помощью маски в числе X младшие M битов младшими M битами числа Y, вывести на экран в двоичном виде Y и результирующий X. Сравнить с ранее введенным X и убедиться в правильности замены битов.
+Задание 7.
+	Ввести с клавиатуры десятичное неотрицательное целое число X, вывести полученное число на экран в двоичном, десятичном, восьмеричном и шестнадцатеричном виде, увеличить число на 1 и вывести результат на следующей строке в тех же видах.
+Пример:
+Введите число 65530
+    | дес   | восм  | hex
+x=  |65530  |177772 |fffa
+x+1=|65531  |177773 |fffb
+Задание 8.
+Ввести с клавиатуры 2 десятичных неотрицательных целых числа X и Y, вывести полученные числа на экран в двоичном, десятичном, восьмеричном и шестнадцатеричном виде, сложить введенные числа (res=x+y;) и вывести результат на следующей строке в тех же видах.
+Пример:
+Введите числа 1000 2000
+        | дес   | восм  | hex   | двоичный
+x =     |01000  |001750 |03e8   | 0000 0011 1110 1000
+y =     |02000  |003720 |07d0   | 0000 0111 1101 0000
+x + y = |03000  |005670 |0bb8   | 0000 1011 1011 1000
+Задание 9.
+Ввести с клавиатуры десятичное целое число X (число может быть отрицательным, хранить нужно в переменной с модификатором signed, например, signed int), вывести его в беззнаковом формате на экран в двоичном, десятичном, восьмеричном и шестнадцатеричном виде. Для формирования вывода можно использовать дополнительную переменную с модификатором unsigned.
+Задание 10.
+Ввести с клавиатуры десятичное целое число X (число может быть отрицательным), сохранить знак числа и его модуль для дальнейших расчетов. Знак можно хранить, например, с помощью переменной типа bool, модуль – в переменной типа unsigned. Учитывая сохраненный знак, перевести модуль числа в прямой, дополнительный и обратный код, затем вывести исходное и полученные числа на экран в двоичном, десятичном, восьмеричном и шестнадцатеричном виде.
+Задание 11.
+Ввести с клавиатуры десятичное целое число X (число может быть отрицательным), вывести полученное число на экран в двоичном, десятичном, восьмеричном и шестнадцатеричном виде, увеличить число на 1 и вывести результат на следующей строке в тех же видах.
+Пример:
+Введите число -1
+        | дес   | восм  | hex   | двоичный
+x =     |65535  |177777 |ffff   | 1111 1111 1111 1111
+x + 1 = |00000  |000000 |0000   | 0000 0000 0000 0000
+Задание 12.
+Ввести с клавиатуры 2 небольших десятичных целых числа X и Y (числа могут быть отрицательными), вывести полученные числа на экран в двоичном, десятичном, восьмеричном и шестнадцатеричном виде, сложить введенные числа стандартным способом (res=x+y;); получить модули и знаки чисел, преобразовать числа в прямой, дополнительный и обратный коды, реализовать сложение по правилам прямого, дополнительного и обратного кодов и вывести результаты всех 4 операций в двоичном, десятичном, восьмеричном и шестнадцатеричном виде. Введенные числа должны быть небольшими, результат сложения не должен превышать разрядную сетку.
+Пример:
+Введите числа 4000 -2000
+                | дес   | восм  | hex   | двоичный
+пр  код x =     |04000  |007640 |0fa0   | 0000 1111 1010 0000
+доп код y =     |63536  |174060 |f830   | 1111 1000 0011 0000
+пр  код x + y = |02000  |003720 |07d0   | 0000 0111 1101 0000
+Задание 13.
+Ввести с клавиатуры 8 небольших десятичных чисел A1, A2, A3, A4, B1, B2, B3, B4, (числа могут быть отрицательными). С помощью битовых масок вывести последние 4 бита каждого числа в десятичном, шестнадцатеричном, двоичном виде и, по желанию, в восьмеричном виде. Упаковать 4 четырехбитных числа A1-4 в 2 16-разрядных вектора, хранящихся в беззнаковом целом (например, в типе uint16_t). Используйте схему:
+биты	15	14	13	12	11	10	9	8	7	6	5	4	3	2	1	0
+вектор Aodd	0	0	0	1	Число A3	0	0	0	1	Число A1
+вектор Aeven	Число A4	0	0	0	1	Число A2	0	0	0	0
+То же сделать с числами B1-4. Реализовать сложение векторов как сложение обычных чисел без знака по схеме Codd=Aodd+Bodd и Ceven=Aeven+Beven. Подготовить с помощью масок вектора Codd и Ceven к соединению. Соединить вектора Codd и Ceven в один результирующий вектор C. Результат операций выводите на экран в десятичном, шестнадцатеричном, двоичном виде и, по желанию, в восьмеричном виде.
+
+Задание 14.
+Ввести с клавиатуры 3 латинских символа в кодировке ASCII, с помощью логических операций реализовать перевод 1 символа в строчный, 2 в заглавный, вывести для 1 и 2 символов их номера в алфавите. Изменить вид символов для текущих 1, 2 и 3 введенного. Вывести номера измененных символов в алфавите и убедиться, что они правильные. Ввести с клавиатуры или непосредственно в программе записать в переменную типа char один символ или в переменную строкового типа занести произвольный текст на русском языке в кодировке KOI8-R и сбросить 7 бит символа, проанализировать полученный результат на читаемость транслитерацией.
+Задание 15.
+Ввести с клавиатуры десятичное целое число X (число может быть отрицательным) и десятичное целое число S - количество бит, на которое это число нужно сдвинуть. Реализовать логический, арифметический, циклический сдвиги на заданное количество бит. Реализовать алгоритм записи младших S битов числа X в обратном порядке с сохранением в переменной Y. Вывести все полученные числа в десятичном, шестнадцатеричном, двоичном виде и, по желанию, в восьмеричном виде.
+Задание 16.
+Ввести с клавиатуры десятичные целые числа N и M (числа могут быть отрицательными), выполнить ряд сравнений с помощью оператора if. Условия объединять с помощью логических и битовых операторов &&, &, ||, |, ~, !. Вывести числа и сделать вывод о корректности замены логических операций через битовые.
+Вариант № 5
+Задание 1.
+Ввести с клавиатуры целое число, вывести наибольшее количество идущих подряд комбинаций 10.
+Пример.
+Число: 00101011
+Ответ: 2
+Задание 2.
+Ввести с клавиатуры целое число, обнулить все непересекающиеся комбинации 11, начиная слева.
+Пример.
+Число: 		00111011
+Результат: 	00001000
+Задание 3.
+С помощью побитовых операций сформировать числа, побитовое представление которых выглядит следующим образом. Вывести получившуюся картинку на экран.
+10000111
+10001111
+10011101
+10111001
+11110001
+11100001
+
+
+Текст программы
+Задание 1.
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned int n;
+    cout << "Enter 0<=n<=maxbits" << endl; cin >> n;
+    double result = 1<<n;
+    cout << "2^n: " << dec << result << "(dec) " << oct << result << "(oct) " << hex << result << "(hex)" << endl;
+    return 0;
+} 
+Задание 2.
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned int n, x;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "Enter number of bit 0<=n<=maxbits: " << endl; cin >> n;
+    cout << "Value n's bit of X: " << bool(x & (1<<n)) << endl;
+    return 0;
+} 
+
+ Задание 3.
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned int n, x;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "Enter number of bit 0<=n<=maxbits: " << endl; cin >> n;
+    unsigned int result = x | (1<<n);
+    cout << "Value with n's bit of X equal 1: " << result << "(dec) " << oct << result << "(oct) " << hex << result << "(hex) " << endl;
+    return 0;
+}
+ 
+Задание 4.
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned int n, x;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "Enter number of bit 0<=n<=maxbits: " << endl; cin >> n;
+    unsigned int result = x & ~(1<<n);
+    cout << "Value with n's bit of X equal 0: " << result << "(dec) " << oct << result << "(oct) " << hex << result << "(hex) " << endl;
+    return 0;
+}
+ 
+Задание 5. 
+#include <iostream>
+using namespace std;
+
+int main() {
+    unsigned int n, x;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "Enter number of bit 0<=n<=maxbits: " << endl; cin >> n;
+    unsigned int result = x;
+    result ^= (1 << n);
+    cout << "Value with invert n's bit of X: " << result << "(dec) " << oct << result << "(oct) " << hex << result << "(hex) " << endl;
+    return 0;
+} 
+
+Задание 6.
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {//to print binary x
+    vector <bool> binary_x; //make vector of bools
+    unsigned int tmp_x = x;
+    while (tmp_x) {
+        binary_x.insert(binary_x.begin(), tmp_x & 1);//add to begin of vector last value of tmp_x
+        tmp_x >>= 1;
+    }
+    for (bool i : binary_x) {//print x by bits
+        cout << i;
+    }cout << endl;
+    binary_x.clear(); //clear memory
+}
+
+int main() {
+    unsigned int x;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "Binary X: "; print_binary(x);
+    unsigned int y,m;
+    cout << "Enter unsigned integer Y: " << endl; cin >> y;
+    cout << "Enter unsigned integer 0<=M<=maxbits(length of mask): " << endl; cin >> m;
+	mask1=(1<<n)-1
+	mask2=~((1<<n)-1)
+    if(m > 0){ //if m>0 change values in first m ranks of x to first m values of y 
+        unsigned int mask = 1<<(m-1);
+        while (mask) {
+            if (mask & y) {
+                x |= mask;
+            }
+            else {
+                x &= ~mask;
+            }
+            mask >>= 1;
+        }
+    }
+    cout << "Binary Y: "; print_binary(y);
+    cout << "New binary X: "; print_binary(x);
+    unsigned int mask = 1 << (m - 1);
+    while (mask) {
+        if ((mask & y)==(mask&x)) {
+            mask >>= 1;
+            continue;
+        }
+        else {
+            cout << "It isn't correct!" << endl;
+            break;
+        }
+    }
+    if (!mask) {
+        cout << "There are not mistakes!" << endl;
+    }
+    return 0;
+}
+ 
+Задание 7. 
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    vector <bool> binary_x;
+    unsigned int tmp_x = x;
+    while (tmp_x) {
+        binary_x.insert(binary_x.begin(), tmp_x & 1);
+        tmp_x >>= 1;
+    }
+    int rank = binary_x.size() % 4;
+    if (!rank) rank = 4;
+    for (bool i : binary_x) {
+        cout << i;
+        rank -= 1;
+        if (rank == 0) {
+            cout << " ";
+            rank = 4;
+        }
+    }
+    binary_x.clear();
+}
+
+
+
+int main() {
+    unsigned int x;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "\t|dec\t\t|oct\t\t|hex\t\t|binary" << endl;
+    cout << "  X =\t" << "|" << x << "\t\t|" << oct << x << "\t\t|" << hex << x << "\t\t|"; print_binary(x); cout << "\n";
+    cout << "  X+1 =\t" << "|" << dec << x + 1 << "\t\t|" << oct << x + 1 << "\t\t|" << hex << x + 1 << "\t\t|"; print_binary(x + 1); cout << "\n";
+    return 0;
+} 
+Задание 8. 
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    vector <bool> binary_x;
+    unsigned int tmp_x = x;
+    while (tmp_x) {
+        binary_x.insert(binary_x.begin(), tmp_x & 1);
+        tmp_x >>= 1;
+    }
+    int rank = binary_x.size() % 4;
+    if (!rank) rank = 4;
+    for (bool i : binary_x) {
+        cout << i;
+        rank -= 1;
+        if (rank == 0) {
+            cout << " ";
+            rank = 4;
+        }
+    }
+    binary_x.clear();
+}
+
+
+int main() {
+    unsigned int x, y;
+    cout << "Enter unsigned integer X: " << endl; cin >> x;
+    cout << "Enter unsigned integer Y: " << endl; cin >> y;
+    cout << "\t|dec\t\t|oct\t\t|hex\t\t|binary" << endl;
+    cout << "  X =\t" << "|" << x << "\t\t|" << oct << x << "\t\t|" << hex << x << "\t\t|"; print_binary(x); cout << "\n";
+    cout << "  Y =\t" << "|" << dec << y << "\t\t|" << oct << y << "\t\t|" << hex << y << "\t\t|"; print_binary(y); cout <<"\n";
+    cout << "  X+Y =\t" << "|" << dec << x+y << "\t\t|" << oct << x+y << "\t\t|" << hex << x+y << "\t\t|"; print_binary(x+y); cout << "\n";
+    return 0;
+} 
+Задание 9.
+#include <iostream>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    if (x == 0) {
+        cout << 0;
+    }
+    else {
+        vector <bool> binary_x;
+        unsigned int tmp_x = x;
+        while (tmp_x) {
+            binary_x.insert(binary_x.begin(), tmp_x & 1);
+            tmp_x >>= 1;
+        }
+        int rank = binary_x.size() % 4;
+        if (!rank) rank = 4;
+        for (bool i : binary_x) {
+            cout << i;
+            rank -= 1;
+            if (rank == 0) {
+                cout << " ";
+                rank = 4;
+            }
+        }
+        binary_x.clear();
+    }
+}
+
+
+int main() {
+    int x;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x;
+    unsigned int uns_x = abs(x);
+    cout << "Unsigned X: " << dec << uns_x << "(dec) " << oct << uns_x << "(oct) " << hex << uns_x << "(hex) "; print_binary(uns_x); cout << "(binary)" << endl;
+    return 0;
+} 
+Задание 10.
+#include <iostream>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    if (x == 0) {
+        cout << 0;
+    }
+    else {
+        vector <bool> binary_x;
+        unsigned int tmp_x = x;
+        while (tmp_x) {
+            binary_x.insert(binary_x.begin(), tmp_x & 1);
+            tmp_x >>= 1;
+        }
+        int rank = binary_x.size() % 4;
+        if (!rank) rank = 4;
+        for (bool i : binary_x) {
+            cout << i;
+            rank -= 1;
+            if (rank == 0) {
+                cout << " ";
+                rank = 4;
+            }
+        }
+        binary_x.clear();
+    }
+}
+
+
+int main() {
+    int x;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x;
+    bool sign = 0;
+    (x >= 0) ? sign = 0 : sign = 1;
+    unsigned int uns_x = 0;
+    sign ? uns_x = abs(x) : uns_x = x;
+
+    cout << right << setw(42) << "|" << left << setw(20) << "dec" << "|" << setw(20) << "oct" << "|" << setw(20) << "hex" << "|binary" << endl;
+    cout << "Input signed X: " << right << setw(26) << "|" << dec << left << setw(20) << x << "|" << oct << setw(20) << x << "|" << hex << setw(20) << x << "|"; print_binary(x); cout << "\n";
+    cout << "X in signed magnitude representation: " << right << setw(4) << "|" << dec << left << setw(20) << (uns_x | sign << (sizeof(unsigned) * 8 - 1)) << "|" << oct << setw(20) << (uns_x | sign << (sizeof(unsigned) * 8 - 1)) << "|" << hex << setw(20) << (uns_x | sign << (sizeof(unsigned) * 8 - 1)) << "|"; print_binary((uns_x | sign << (sizeof(unsigned) * 8 - 1))); cout << "\n";
+    cout << "X in one's complement code: " << right << setw(14) << "|" << dec << left << setw(20) << ((~uns_x * sign) | uns_x * !sign) << "|" << oct << setw(20) << ((~uns_x * sign) | uns_x * !sign) << "|" << hex << setw(20) << ((~uns_x * sign) | uns_x * !sign) << "|"; print_binary(((~uns_x * sign) | uns_x * !sign)); cout << "\n";
+    cout << "X in two's complement code: " << right << setw(14) << "|" << dec << left << setw(20) << (((~uns_x + 1) * sign) | uns_x * !sign) << "|" << oct << setw(20) << (((~uns_x + 1) * sign) | uns_x * !sign) << "|" << hex << setw(20) << (((~uns_x + 1) * sign) | uns_x * !sign) << "|"; print_binary((((~uns_x + 1) * sign) | uns_x * !sign)); cout << "\n";
+
+    return 0;
+} 
+Задание 11.
+#include <iostream>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    if (x == 0) {
+        cout << 0;
+    }
+    else {
+        vector <bool> binary_x;
+        unsigned int tmp_x = x;
+        while (tmp_x) {
+            binary_x.insert(binary_x.begin(), tmp_x & 1);
+            tmp_x >>= 1;
+        }
+        int rank = binary_x.size() % 4;
+        if (!rank) rank = 4;
+        for (bool i : binary_x) {
+            cout << i;
+            rank -= 1;
+            if (rank == 0) {
+                cout << " ";
+                rank = 4;
+            }
+        }
+        binary_x.clear();
+    }
+}
+
+
+int main() {
+    int x;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x;
+
+    cout << right << setw(20) << "|" << left << setw(20)  << "dec" << "|" << setw(20) << "oct" << "|" << setw(20) << "hex" << "|binary" << endl;
+    cout << "X: " << right << setw(17) << "|" << dec << left << setw(20) << (unsigned)x << "|" << oct << setw(20) << x << "|" << hex << setw(20) << x << "|"; print_binary(x); cout << "\n";
+    cout << "X + 1: " << right << setw(13) << "|" << dec << left << setw(20) << x+1 << "|" << oct << setw(20) << x + 1 << "|" << hex << setw(20) << x + 1 << "|"; print_binary(x + 1); cout << "\n";
+
+    return 0;
+}  Задание 12.
+#include <iostream>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    if (x == 0) {
+        cout << 0;
+    }
+    else {
+        vector <bool> binary_x;
+        unsigned int tmp_x = x;
+        while (tmp_x) {
+            binary_x.insert(binary_x.begin(), tmp_x & 1);
+            tmp_x >>= 1;
+        }
+        int rank = binary_x.size() % 4;
+        if (!rank) rank = 4;
+        for (bool i : binary_x) {
+            cout << i;
+            rank -= 1;
+            if (rank == 0) {
+                cout << " ";
+                rank = 4;
+            }
+        }
+        binary_x.clear();
+    }
+}
+
+unsigned int sum_signed_magnitude_representation(unsigned a, unsigned b, bool sign_a, bool sign_b) {
+    unsigned magn_a = (a | sign_a << (sizeof(unsigned) * 8 - 1)); //signed magnitude representation of a
+    unsigned magn_b = (b | sign_b << (sizeof(unsigned) * 8 - 1)); //signed magnitude representation of b
+    if (sign_a == 0 && sign_b == 0) { // A>0 && B>0 => a+b==A+B
+        return magn_a + magn_b; //A+B
+    }
+    if (sign_a == 0 && sign_b && a >= b) { // |A|>|B| && A>0 && B<0 => a+b==A-|B| 
+        return magn_a - b; //A-|B|
+    }
+    if (sign_a && sign_b == 0 && a >= b) { // |A|>|B| && A<0 && B>0 => a+b==|A|-|B| with one in the biggest digit 
+        return (a - b) | (1 << (sizeof(unsigned) * 8 - 1)); //1 |A|-|B|
+    }
+    if (sign_a && sign_b) { //A<0 && B<0 => a+b==|A|+|B| with one in the biggest digit
+        return (a + b) | (1 << (sizeof(unsigned) * 8 - 1)); //1 |A|+|B|
+    }
+}
+//0000 0111 -- 7 в обр   1111 1000 -- -7
+//1111 1100 -- -3 в обр  0000 0011 -- 3
+//0000 0011              1111 1011
+unsigned int sum_compl1(unsigned a, unsigned b, bool sign_a, bool sign_b) {
+    unsigned int compl1_a = ((~a * sign_a) | a * !sign_a);
+    unsigned int compl1_b = ((~b * sign_b) | b * !sign_b);
+    if ((compl1_a + compl1_b)&(1<<(sizeof(unsigned) * 8-1))) {
+        return (compl1_a + compl1_b);
+    }
+    return (compl1_a + compl1_b + 1);
+}
+
+//0000 0111 -- 7 в обр   1111 1001 -- -7
+//1111 1101 -- -3 в обр  0000 0011 -- 3 (-4 в доп 1111 1011 + 1)
+//0000 0100              1111 1100
+unsigned int sum_compl2(unsigned a, unsigned b, bool sign_a, bool sign_b) {
+    unsigned int compl2_a = ((~a + 1) * sign_a) | a * !sign_a;
+    unsigned int compl2_b = ((~b + 1) * sign_b) | b * !sign_b;
+    return compl2_a + compl2_b;
+}
+
+int main() {
+    int x, y;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x; //enter variables
+    cout << "Enter decimal signed integer Y: " << endl; cin >> y;
+    bool sign_x = 0, sign_y = 0;
+    (x >= 0) ? sign_x = 0 : sign_x = 1;
+    (y >= 0) ? sign_y = 0 : sign_y = 1;
+    unsigned int uns_x = 0, uns_y = 0;
+    sign_x ? uns_x = abs(x) : uns_x = x;
+    sign_y ? uns_y = abs(y) : uns_y = y;
+    if (max(uns_x, uns_y) == uns_y) { //uns_x is bigger than uns_y
+        uns_x ^= uns_y; //change values
+        uns_y ^= uns_x;
+        uns_x ^= uns_y;
+        sign_x ^= sign_y;
+        sign_y ^= sign_x;
+        sign_x ^= sign_y;
+    }
+    unsigned int sum1 = sum_signed_magnitude_representation(uns_x, uns_y, sign_x, sign_y);
+    unsigned int sum2 = sum_compl1(uns_x, uns_y, sign_x, sign_y);
+    unsigned int sum3 = sum_compl2(uns_x, uns_y, sign_x, sign_y);
+    cout << right << setw(42) << "|" << left << setw(20) << "dec" << "|" << setw(20) << "oct" << "|" << setw(20) << "hex" << "|binary" << endl;
+    cout << "Input signed X: " << right << setw(26) << "|" << dec << left << setw(20) << x << "|" << oct << setw(20) << x << "|" << hex << setw(20) << x << "|"; print_binary(x); cout << "\n";
+    cout << "Input signed Y: " << right << setw(26) << "|" << dec << left << setw(20) << y << "|" << oct << setw(20) << y << "|" << hex << setw(20) << y << "|"; print_binary(y); cout << "\n";
+    cout << "X     +      Y: " << right << setw(26) << "|" << dec << left << setw(20) << x + y << "|" << oct << setw(20) << x + y << "|" << hex << setw(20) << x + y << "|"; print_binary(x + y); cout << "\n";
+    cout << "X+Y in signed magnitude representation: " << right << setw(2) << "|" << dec << left << setw(20) << sum1 << "|" << oct << setw(20) << sum1 << "|" << hex << setw(20) << sum1 << "|"; print_binary(sum1); cout << "\n";
+    cout << "X+Y in one's complement code: " << right << setw(12) << "|" << dec << left << setw(20) << sum2 << "|" << oct << setw(20) << sum2 << "|" << hex << setw(20) << sum2 << "|"; print_binary(sum2); cout << "\n";
+    cout << "X+Y in two's complement code: " << right << setw(12) << "|" << dec << left << setw(20) << sum3 << "|" << oct << setw(20) << sum3 << "|" << hex << setw(20) << sum3 << "|"; print_binary(sum3); cout << "\n";
+
+    return 0;
+} 
+
+Задание 13.
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+void print_binary(unsigned int x) {
+    if (x == 0) {
+        cout << 0;
+    }
+    else {
+        vector <bool> binary_x;
+        unsigned int tmp_x = x;
+        while (tmp_x) {
+            binary_x.insert(binary_x.begin(), tmp_x & 1);
+            tmp_x >>= 1;
+        }
+        int rank = binary_x.size() % 4;
+        if (!rank) rank = 4;
+        for (bool i : binary_x) {
+            cout << i;
+            rank -= 1;
+            if (rank == 0) {
+                cout << " ";
+                rank = 4;
+            }
+        }
+        binary_x.clear();
+    }
+}
+
+
+int main() {
+    int a1, a2, a3, a4, b1, b2, b3, b4;
+    cout << "Enter 8 decimal signed integers A1, A2, A3, A4, B1, B2, B3, B4: "; cin >> a1 >> a2 >> a3 >> a4 >> b1 >> b2 >> b3 >> b4;
+    uint16_t mask = (1 << 4) - 1;//mask with ones in first  4 bits
+    cout << right << setw(21) << "|" << left << setw(20) << "dec" << "|" << setw(20) << "hex" << "|binary" << endl;
+    cout << "Last 4 bits of A1: " << right << setw(2) << "|" << dec << left << setw(20) << (a1&mask) << "|" << hex << setw(20) << (a1 & mask) << "|"; print_binary((a1 & mask)); cout << "\n";
+    cout << "Last 4 bits of A2: " << right << setw(2) << "|" << dec << left << setw(20) << (a2 & mask) <<  "|" << hex << setw(20) << (a2 & mask) << "|"; print_binary((a2 & mask)); cout << "\n";;
+    cout << "Last 4 bits of A3: " << right << setw(2) << "|" << dec << left << setw(20) << (a3 & mask) <<  "|" << hex << setw(20) << (a3 & mask) << "|"; print_binary((a3 & mask)); cout << "\n";
+    cout << "Last 4 bits of A4: " << right << setw(2) << "|" << dec << left << setw(20) << (a4 & mask) << "|" << hex << setw(20) << (a4 & mask) << "|"; print_binary((a4 & mask)); cout << "\n";
+    cout << "Last 4 bits of B1: " << right << setw(2) << "|" << dec << left << setw(20) << (b1 & mask) <<  "|" << hex << setw(20) << (b1 & mask) << "|"; print_binary((b1 & mask)); cout << "\n";
+    cout << "Last 4 bits of B2: " << right << setw(2) << "|" << dec << left << setw(20) << (b2 & mask) <<  "|" << hex << setw(20) << (b2 & mask) << "|"; print_binary((b2 & mask)); cout << "\n";
+    cout << "Last 4 bits of B3: " << right << setw(2) << "|" << dec << left << setw(20) << (b3 & mask) <<  "|" << hex << setw(20) << (b3 & mask) << "|"; print_binary((b3 & mask)); cout << "\n";
+    cout << "Last 4 bits of B4: " << right << setw(2) << "|" << dec << left << setw(20) << (b4 & mask) << "|" << hex << setw(20) << (b4 & mask) << "|"; print_binary((b4 & mask)); cout << "\n";
+    cout << endl;
+    //Aodd == 0001 a3 0001 a1
+    //Aeven == a4 0001 a2 0000
+    uint16_t Aodd, Aeven, Bodd, Beven, Codd, Ceven;
+    Aodd = (1 << 12) ^ ((a3 & 15) << 8) ^ (1 << 4) ^ (a1 & 15); /*sequential 4 bits aren't cross => can connect them with XOR*/   cout << "Vector Aodd: " << right << setw(8) << "|" << dec << left << setw(20) << Aodd << "|" << hex << setw(20) << Aodd << "|"; print_binary(Aodd); cout << "\n";
+    Aeven = ((a4 & 15) << 12) ^ (1 << 8) ^ ((a2 & 15) << 4) ^ (0);    cout << "Vector Aeven: " << right << setw(7) << "|" << dec << left << setw(20) << Aeven << "|" << hex << setw(20) << Aeven << "|"; print_binary(Aeven); cout << "\n";
+    Bodd = (1 << 12) ^ ((b3 & 15) << 8) ^ (1 << 4) ^ (b1 & 15);    cout << "Vector Bodd: " << right << setw(8) << "|" << dec << left << setw(20) << Bodd << "|" << hex << setw(20) << Bodd << "|"; print_binary(Bodd); cout << "\n";
+    Beven = ((b4 & 15) << 12) ^ (1 << 8) ^ ((b2 & 15) << 4) ^ (0);    cout << "Vector Beven: " << right << setw(7) << "|" << dec << left << setw(20) << Beven << "|" << hex << setw(20) << Beven << "|"; print_binary(Beven); cout << "\n";
+    Codd = Aodd + Bodd;    cout << "Vector Codd: " << right << setw(8) << "|" << dec << left << setw(20) << Codd << "|" << hex << setw(20) << Codd << "|"; print_binary(Codd); cout << "\n";
+    Ceven = Aeven + Beven;    cout << "Vector Ceven: " << right << setw(7) << "|" << dec << left << setw(20) << Ceven << "|" << hex << setw(20) << Ceven << "|"; print_binary(Ceven); cout << "\n";
+
+    uint16_t count = 4; //1 2 3 4 (from left)
+    while (count) {
+        if (count & 1) { //if odd
+            Codd |= (mask << ((4 - count) * 4));
+        }
+        else { //if even
+            Ceven |= (mask << ((4 - count) * 4));
+        }
+        count -= 1;
+    }
+    uint16_t C = Codd & Ceven; // connect Cood and Ceven
+    cout << "Vector C: " << right << setw(11) << "|" << dec << left << setw(20) << C << "|" << hex << setw(20) << C << "|"; print_binary(C); cout << "\n";
+
+    return 0;
+}
+ 
+Задание 14.
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    system("chcp 20866 >> NULL");
+    //setlocale(LC_ALL, "Russian_Russia.20866");
+    char a, b, c;
+    cout << "Введите 3 ASCII symbols A, B, C: "; cin >> a >> b >> c;
+    a = (a | ' '); // make lower-case
+    b = (b & '_'); // make upper-case
+    cout << "Number of " << a << " in alphabet : " << (a & char(31)) << endl;
+    cout << "Number of " << b << " in alphabet : " << (b & char(31)) << endl;
+    a = (a ^ ' '); //change to opposite case
+    b = (b ^ ' '); // change to opposite case
+    c = (c ^ ' '); // change to opposite case
+    cout << "Number of " << a << " in alphabet : " << (a & char(31)) << endl;
+    cout << "Number of " << b << " in alphabet : " << (b & char(31)) << endl;
+    cout << "Number of " << c << " in alphabet : " << (c & char(31)) << endl;
+
+    cout << "Enter something in Russian: ";
+    string koi;
+    cin.ignore();
+    getline(cin, koi);
+    cout<< endl << koi << " without 7 bits: ";
+    for (int i = 0; i < koi.size(); i++) {
+        cout << char(koi[i] & 0x7f);
+    }cout << endl;
+    for (int i = 0; i < koi.size(); i++) {
+        koi[i]&=~(1 << 7);
+    }
+    return 0;
+} 
+Задание 15.
+#include <iostream>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+bool cf = 0;//make total carry flag
+
+void print_binary(unsigned int x) {
+    if (x == 0) {
+        cout << 0;
+    }
+    else {
+        vector <bool> binary_x;
+        unsigned int tmp_x = x;
+        while (tmp_x) {
+            binary_x.insert(binary_x.begin(), tmp_x & 1);
+            tmp_x >>= 1;
+        }
+        int rank = binary_x.size() % 4;
+        if (!rank) rank = 4;
+        for (bool i : binary_x) {
+            cout << i;
+            rank -= 1;
+            if (rank == 0) {
+                cout << " ";
+                rank = 4;
+            }
+        }
+        binary_x.clear();
+    }
+}
+
+int left_cycle_shift(int x, int shift) {//function to make left cycle shift
+    int tmp_shift = shift;//save value of given shift
+    while (tmp_shift) {
+        bool current_cf = cf;//save current value of carry flag
+        cf = bool(x & 1 << (sizeof(int) * 8 - 1));//assign to cf value in last rank of x
+        x = (x << 1); //shift x to left
+        x = x | current_cf;//assign to value in first rank of x value of previous cf 
+        tmp_shift -= 1;
+    }
+    return x;
+}
+
+int right_cycle_shift(int x, int shift) { //similarly to left cycle shift 
+    int tmp_shift = shift;
+    while (tmp_shift) {
+        bool current_cf = cf;
+        cf = x & 1;
+        x = (x >> 1);
+        x = x | (current_cf << (sizeof(int) * 8 - 1));
+        tmp_shift -= 1;
+    }
+    return x;
+}
+//0000 0000 -- 1 byte -- 8 bits
+int main() {
+    int x, s;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x;
+    cout << "Enter decimal unsiged integer S (bits to shift): " << endl; cin >> s;
+    cout << right << setw(42) << "|" << left << setw(20) << "dec" << "|" << setw(20) << "hex" << "|binary" << endl;
+    cout << "Logical shift <<: " << right << setw(24) << "|" << dec << left << setw(20) << (x << s) << "|" << oct << setw(20) << (x << s) << "|" << hex << setw(20) << (x << s) << "|"; print_binary((x << s)); cout << "\n";
+    cout << "Logical shift >>: " << right << setw(24) << "|" << dec << left << setw(20) << (x >> s) << "|" << oct << setw(20) << (x >> s) << "|" << hex << setw(20) << (x >> s) << "|"; print_binary((x >> s)); cout << "\n";;
+    cout << "Ariphmetic shift <<: " << right << setw(21) << "|" << dec << left << setw(20) << (x << s) << "|" << oct << setw(20) << (x << s) << "|" << hex << setw(20) << (x << s) << "|"; print_binary((x << s)); cout << "\n";//same to logical left shift
+    cout << "Ariphmetic shift >>: " << right << setw(21) << "|" << dec << left << setw(20) << ((x & 1 << (sizeof(int) * 8 - 1)) | (x >> s)) << "|" << oct << setw(20) << ((x & 1 << (sizeof(int) * 8 - 1)) | (x >> s)) << "|" << hex << setw(20) << ((x & 1 << (sizeof(int) * 8 - 1)) | (x >> s)) << "|"; print_binary(((x & 1 << (sizeof(int) * 8 - 1)) | (x >> s))); cout << "\n";//same to logical right shift but save value in last rank of x
+    cout << "Cycle shift <<: " << right << setw(26) << "|" << dec << left << setw(20) << left_cycle_shift(x, s) << "|" << oct << setw(20) << left_cycle_shift(x, s) << "|" << hex << setw(20) << left_cycle_shift(x, s) << "|"; print_binary(left_cycle_shift(x, s)); cout << "\n";
+    cout << "Cycle shift >>: " << right << setw(26) << "|" << dec << left << setw(20) << right_cycle_shift(x, s) << "|" << oct << setw(20) << right_cycle_shift(x, s) << "|" << hex << setw(20) << right_cycle_shift(x, s) << "|"; print_binary(right_cycle_shift(x, s)); cout << "\n";
+    int y = 0;
+    int tmp = (1 << s) - 1;
+    tmp = tmp & x;//save values in first Ss bites
+    while (tmp) {//reverse bites in tmp from right to left
+        y = y << 1;//shift bites of y to left
+        y = y|(tmp & 1);//save value in first rank of tmp to y
+        tmp = tmp >> 1;
+    }
+    cout << "Reversed S bites of X: " << right << setw(19) << "|" << dec << left << setw(20) << y << "|" << oct << setw(20) << y << "|" << hex << setw(20) << y << "|"; print_binary(y); cout << "\n";
+    return 0;}  Задание 16.
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int n, m;
+    cout << "Enter decimal signed integers N, M: " << endl;
+    cin >> n >> m;
+    //&&, &
+    cout << right << setw(10) << "& vs &&" << endl;
+    if ((m & n) == (m && n)) {
+        cout << "& is equivalent && for N, M" << endl;
+        cout << "M&N: " << (m & n) << endl;
+        cout << "M&&N: " << (m && n) << endl;
+    }
+    else {
+        cout << "& is not equivalent && for N, M" << endl;
+        cout << "M&N: " << (m & n) << endl;
+        cout << "M&&N: " << (m && n) << endl;
+    }
+    //|, ||
+    cout << setw(10) << "| vs ||" << endl;
+    if ((m | n) == (m || n)) {
+        cout << "| is equivalent || for N, M" << endl;
+        cout << "M|N: " << (m | n) << endl;
+        cout << "M||N: " << (m || n) << endl;
+    }
+    else {
+        cout << "| is not equivalent || for N, M" << endl;
+        cout << "M|N: " << (m | n) << endl;
+        cout << "M||N: " << (m || n) << endl;
+    }
+    //~, !
+    cout << setw(10) << "~ vs !\n";
+    if ((~m) == (!m)) {
+        cout << "~ is equivalent ! for M" << endl;
+        cout << "~M: " << (~m) << endl;
+        cout << "!M: " << !m << endl;
+    }
+    else {
+        cout << "~ is not equivalent ! for M" << endl;
+        cout << "~M: " << (~m) << endl;
+        cout << "!M: " << !m << endl;
+    }
+    return 0;
+}  
+
+
+Вариант 5.
+Задание 1.
+#include <iostream>
+using namespace std;
+
+int main() {
+    int x;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x;
+    int counter = 0;
+    while (x) {
+        counter += ~(x & 1) & ((x >> 1) & 1);//check two first ranks to 10 and add to counter 1 if it’s
+        x >>= 2; //move two first ranks out of x while x!= 0
+    }
+    cout << "Value of 10 in binary X: " << counter << endl;
+    return 0;
+} 
+Задание 2.
+#include <iostream>
+using namespace std;
+
+int main() {
+    int x;
+    cout << "Enter decimal signed integer X: " << endl; cin >> x;
+    unsigned int mask = 1 << (sizeof(int) * 8 - 1);//mask with 1 in last rank
+    while (mask > 1) {
+        if ((mask & x)&&(x & (mask >> 1))) {//check if there are two sequential 1s in x from left
+            x &= ~(mask|(mask>>1)); // if it’s make 00 instead 11
+        }
+        mask >>= 1; //move 1 in mask to right while mask>1
+    }
+    cout << "X without 11s from left in binary code: " << x << endl;
+    return 0;
+}  
+Задание 3.
+#include <iostream>
+#include <vector>
+using namespace std;
+/*
+10000111
+10001111
+10011101
+10111001
+11110001
+11100001
+*/
+
+void print_binary(unsigned int x) {
+    vector <bool> binary_x;
+    unsigned int tmp_x = x;
+    while (tmp_x) {
+        binary_x.insert(binary_x.begin(), tmp_x & 1);
+        tmp_x >>= 1;
+    }
+    for (bool i : binary_x) {
+        cout << i;
+    }
+    binary_x.clear();
+}
+
+int main() {
+    unsigned int x;
+    x = (1 << 7);
+    unsigned int mask;
+    mask = (1 << 3) - 1;//three 1 to move along x==1000 0000
+    while (mask < x) {
+        mask <<= 1; //move mask along x
+        cout << (x | mask | 1) << "(dec)\t"; print_binary((x | mask | 1)); cout << "(binary)\n"; //x connect to 111 and 1 in zero rank with bitwise ‘or’
+    }
+    return 0;
+}  
+
+Выводы
+В результате лабораторной работы написана и отлажена программа с различными битовыми операциями. Изучены способы хранения целых чисел в памяти компьютера: в прямом, обратном и дополнительном кодах. Изучены правила сложения целых чисел в этих кодах, способы побитовых сдвигов. Также проделана работа с кодировками ASCII и KOI8-R. Изучена возможность получения транслитерации русских слов, путём сброса младших 7 бит. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы.
+

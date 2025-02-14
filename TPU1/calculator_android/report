@@ -1,0 +1,158 @@
+Цель работы 
+Написать и отладить программу в AndroidStudio на языке Kotlin, изучив интерфейс среды разработки. Написать простой калькулятор с операциями сложения, вычитания, умножения и деления, запустить его на эмуляторе устройства.
+Задание
+1.	Создать проект
+2.	Запустить приложение на эмуляторе
+3.	Отладить приложение
+4.	Написать простой калькулятор
+
+
+Код программы
+
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/number1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_hint"
+        android:autofillHints="@string/edit_hint"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/number2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_hint"
+        android:autofillHints="@string/edit_hint"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/result_no" />
+
+    <Button
+        android:id="@+id/plus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="plusClick"
+        android:text="@string/button_plus" />
+    <Button
+        android:id="@+id/minus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="minusClick"
+        android:text="@string/button_minus" />
+    <Button
+        android:id="@+id/mult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="multClick"
+        android:text="@string/button_mult" />
+    <Button
+        android:id="@+id/div"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="divClick"
+        android:text="@string/button_div" />
+
+
+</LinearLayout>
+
+strings.xml
+<resources>
+    <string name="app_name">Lab01</string>
+    <string name="button_plus">Сумма</string>
+    <string name="button_minus">Разность</string>
+    <string name="button_mult">Умножение</string>
+    <string name="button_div">Деление</string>
+    <string name="edit_hint">Введите число</string>
+    <string name="operation_result">Результат операции: %1$f</string>
+    <string name="result_no">Здесь будет результат...</string>
+
+</resources>
+
+MainActivity.kt
+package com.alinagolovnina.lab01
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+    private var count: Int = 1
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    fun plusClick(view: View) {
+// Получаем первое число
+        val edit1: EditText = findViewById(R.id.number1)
+        val n1 = edit1.text.toString().toFloat()
+// Получаем второе число
+        val edit2: EditText = findViewById(R.id.number2)
+        val n2 = edit2.text.toString().toFloat()
+// Помещаем результат в текстовое поле
+        val n = n1 + n2
+        val textView: TextView = findViewById(R.id.result)
+        val resText = resources.getString(R.string.operation_result)
+        textView.text = String.format(resText, n)
+    }
+
+    fun minusClick(view: View) {
+// Получаем первое число
+        val edit1: EditText = findViewById(R.id.number1)
+        val n1 = edit1.text.toString().toFloat()
+// Получаем второе число
+        val edit2: EditText = findViewById(R.id.number2)
+        val n2 = edit2.text.toString().toFloat()
+// Помещаем результат в текстовое поле
+        val n = n1 - n2
+        val textView: TextView = findViewById(R.id.result)
+        val resText = resources.getString(R.string.operation_result)
+        textView.text = String.format(resText, n)
+    }
+
+    fun multClick(view: View) {
+// Получаем первое число
+        val edit1: EditText = findViewById(R.id.number1)
+        val n1 = edit1.text.toString().toFloat()
+// Получаем второе число
+        val edit2: EditText = findViewById(R.id.number2)
+        val n2 = edit2.text.toString().toFloat()
+// Помещаем результат в текстовое поле
+        val n = n1 * n2
+        val textView: TextView = findViewById(R.id.result)
+        val resText = resources.getString(R.string.operation_result)
+        textView.text = String.format(resText, n)
+    }
+
+    fun divClick(view: View) {
+// Получаем первое число
+        val edit1: EditText = findViewById(R.id.number1)
+        val n1 = edit1.text.toString().toFloat()
+// Получаем второе число
+        val edit2: EditText = findViewById(R.id.number2)
+        val n2 = edit2.text.toString().toFloat()
+// Помещаем результат в текстовое поле
+        val n = n1 / n2
+        val textView: TextView = findViewById(R.id.result)
+        val resText = resources.getString(R.string.operation_result)
+        textView.text = String.format(resText, n)
+    }
+
+}
+
+
+Выводы
+В результате лабораторной работы написана и отлажена программа в AndroidStudio на языке Kotlin, изучены основные функции среды разработки. Также написан простейший калькулятор с четырьмя операциями: сложение, разность, умножение, деление. Программа запущена на эмуляторе устройства, на базе Android. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы.

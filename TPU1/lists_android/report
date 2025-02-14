@@ -1,0 +1,126 @@
+Цель работы 
+Написать и отладить программу в Android Studio на языке Kotlin, изучив интерфейс среды разработки и методы языка Kotlin. Написать программу для тренировки памяти и запустить её на эмуляторе устройства, используя для её реализации списки.
+Задание
+⦁    Создать проект
+⦁    Запустить приложение на эмуляторе
+⦁    Отладить приложение
+⦁    Реализовать простой список ListView
+⦁    Реализовать сложные списки
+⦁    Добавить события в списки
+⦁    Написать программу для тренировки памяти: в списке выведены названия стран, а при нажатии на страну отображается элемент Toast с названием города-столицы этой страны
+
+Код программы
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="vertical"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent">
+
+   <ListView
+       android:id="@+id/listView"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:divider="@color/material_blue_grey_800"
+       android:dividerHeight="1dp"
+       android:footerDividersEnabled="false"/>
+
+</LinearLayout>
+my_list_item_advanced.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="horizontal"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:padding="10dp">
+
+   <ImageView
+       android:id="@+id/icon"
+       android:layout_width="100dp"
+       android:layout_height="100dp"/>
+
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:padding="10dp">
+
+   <TextView
+       android:id="@+id/title"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textColor="#009688"
+       android:textSize="20sp"/>
+
+   <TextView
+       android:id="@+id/info"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"/>
+   </LinearLayout>
+
+</LinearLayout>
+MainActivity.kt
+package com.example.intr_to_it_lab2
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.ListView
+import android.widget.Toast
+import android.widget.SimpleAdapter
+
+class MainActivity : AppCompatActivity() {
+   override fun onCreate(savedInstanceState: Bundle?) {
+       super.onCreate(savedInstanceState)
+       setContentView(R.layout.activity_main)
+       //Формирование матрицы со странами
+       val countries = ArrayList<Map<String, Any>>()
+       var item: MutableMap<String, Any>
+       item = HashMap()
+       item["title"] = "Россия"
+       item["info"] = "Спасская башня"
+       item["photo"] = R.drawable.spasskaya
+       item["capital"] = "Москва"
+       countries.add(item)
+       item = HashMap()
+       item["title"] = "Украина"
+       item["info"] = "Дом с химерами"
+       item["photo"] = R.drawable.the_house_with_chimeras
+       item["capital"] = "Киев"
+       countries.add(item)
+       item = HashMap()
+       item["title"] = "Польша"
+       item["info"] = "Вилянувский дворец"
+       item["photo"] = R.drawable.wilanow_palace
+       item["capital"] = "Варшава"
+       countries.add(item)
+       item = HashMap()
+       item["title"] = "Белоруссия"
+       item["info"] = "Красный костёл"
+       item["photo"] = R.drawable.red_church
+       item["capital"] = "Минск"
+       countries.add(item)
+       item = HashMap()
+       item["title"] = "Казахстан"
+       item["info"] = "Хан Шатыр"
+       item["photo"] = R.drawable.han_shatir
+       item["capital"] = "Астана"
+       countries.add(item)
+       //Подготовка адаптера
+       val from = arrayOf<String>("title", "info", "photo")
+       val to = intArrayOf(R.id.title, R.id.info, R.id.icon)
+       val adapter = SimpleAdapter(this, countries, R.layout.my_list_item_advanced, from, to)
+       val listView: ListView = findViewById(R.id.listView)
+       listView.adapter = adapter
+       //Установка "листнера" для выведения подсказок
+       listView.setOnItemClickListener { parent, view, position, id ->
+           //val textView = view.findViewById<TextView>(R.id.title)
+           val toast: Toast = Toast.makeText(this,"Столица: " + countries[position]["capital"], Toast.LENGTH_SHORT)
+           toast.show()
+       }
+
+   }
+}
+  
+Выводы
+В результате лабораторной работы написана и отлажена программа в Android Studio на языке Kotlin, изучены основные функции среды разработки. Также написана программа для тренировки памяти, в которой отображены страны и известные достопримечательности столицы (фото находятся в папке “drawable” проекта), а при нажатии всплывает подсказка с названием столицы. Программа запущена на эмуляторе устройства, на базе Android. Код снабжен комментариями для облегчения понимания и дальнейшего сопровождения программы.
