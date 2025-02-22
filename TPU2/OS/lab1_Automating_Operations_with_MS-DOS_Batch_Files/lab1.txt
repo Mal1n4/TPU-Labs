@@ -1,0 +1,20 @@
+rem avg111
+@echo off
+if -%1 == - goto no_name
+if not exist %1 goto no_file
+
+dir /b %1 > ext_list_avg111.txt
+FOR /f "usebackq tokens=1,2 delims=." %%a IN (ext_list_avg111.txt) DO (
+if not exist %1\%%b_avg111 mkdir %1\%%b_avg111
+move %1\%%a.%%b %1\%%b_avg111
+)
+del ext_list_avg111.txt
+
+goto End
+:no_name
+echo Please, enter full directory name (disk:\path)
+goto End
+:no_file
+echo Directory %1 not exist
+:End
+
