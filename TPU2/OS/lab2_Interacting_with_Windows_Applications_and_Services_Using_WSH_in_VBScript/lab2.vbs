@@ -21,7 +21,7 @@ else
 	set vCalc = vShell.Exec("calc.exe")
 	WScript.Sleep(500)
 
-	calcul = vShell.AppActivate(vCalc.ProcessID)
+	vShell.AppActivate(vCalc.ProcessID)
 	WScript.Sleep(500)	
 	vShell.SendKeys("9")
 	WScript.Sleep(500)
