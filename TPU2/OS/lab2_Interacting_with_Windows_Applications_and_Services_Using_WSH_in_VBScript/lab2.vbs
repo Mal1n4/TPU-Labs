@@ -9,7 +9,7 @@ path = fso.GetParentFolderName(f)
 set ts = fso.OpenTextFile(path&"\X.txt", 1)
 s = ts.ReadLine()
 ts.Close
-set objRegexp = CreateObject("VBScript.RegExp")
+set objRegExp = CreateObject("VBScript.RegExp")
 objRegExp.Global = True
 objRegExp.Pattern = "[^0-9]"
 set objMatches = objRegExp.Execute(s)
@@ -17,8 +17,12 @@ if (objMatches.Count) then
 MsgBox "Please, use only numbers in "&path&"\X.txt", 0, "Error"
 else
 	set vNote = vShell.Exec("notepad.exe")
+	WScript.Sleep(100)
 	set vCalc = vShell.Exec("calc.exe")
+	WScript.Sleep(100)
 	calcul = vShell.AppActivate(vCalc.ProcessID)
+	WScript.Sleep(100)
+
 	if calcul then vShell.SendKeys("9*"&s&"=^c")
 	WScript.Sleep(100)
 	'vShell.SendKeys "9"
@@ -38,6 +42,7 @@ else
 
 	vCalc.Terminate
 	notep = vShell.AppActivate(vNote.ProcessID)
+	WScript.Sleep(100)
 	if notep then vShell.SendKeys("^v")
 	WScript.Sleep(100)
 End If
