@@ -18,7 +18,7 @@ MsgBox "Please, use only numbers in "&path&"\X.txt", 0, "Error"
 else
 	set vNote = vShell.Exec("notepad.exe")
 	WScript.Sleep(100)
-	set vCalc = vShell.Exec("calc.exe")
+	set vCalc = vShell.Exec("calc1.exe")
 	WScript.Sleep(100)
 	calcul = vShell.AppActivate(vCalc.ProcessID)
 	WScript.Sleep(100)
