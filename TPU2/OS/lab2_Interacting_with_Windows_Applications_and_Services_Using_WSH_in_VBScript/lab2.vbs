@@ -17,46 +17,27 @@ if (objMatches.Count) then
 MsgBox "Please, use only numbers in "&path&"\X.txt", 0, "Error"
 else
 	set vNote = vShell.Exec("notepad.exe")
-	WScript.Sleep(100)
-	set vCalc = vShell.Exec("calc1.exe")
-	WScript.Sleep(100)
+	WScript.Sleep(500)
+	set vCalc = vShell.Exec("calc.exe")
+	WScript.Sleep(500)
+
 	calcul = vShell.AppActivate(vCalc.ProcessID)
-	WScript.Sleep(100)
+	WScript.Sleep(500)	
+	vShell.SendKeys("9")
+	WScript.Sleep(500)
+	vShell.SendKeys("*")
+	WScript.Sleep(500)
+	vShell.SendKeys(s)
+	WScript.Sleep(500)
+	vShell.SendKeys("=")
+	WScript.Sleep(500)
+	vShell.SendKeys("^c")
+	WScript.Sleep(500)	
+	vShell.SendKeys("%{F4}")
+	WScript.Sleep(500)
 
-	if calcul then vShell.SendKeys("9*"&s&"=^c")
-	WScript.Sleep(100)
-	'vShell.SendKeys "9"
-	'WScript.Sleep(100)
-	'vShell.SendKeys "*"
-	'WScript.Sleep(100)
-	'for i=1 to len(s)
-	'	cur_num=Mid(s,i,1)
-	'	vShell.SendKeys cur_num
-	'	WScript.Sleep(100)
-	'next
-	'vShell.SendKeys "="
-	'WScript.Sleep(100)
-	'vShell.SendKeys "^C"
-	
-	'MsgBox "To continue press ok"
-
-	vCalc.Terminate
 	notep = vShell.AppActivate(vNote.ProcessID)
-	WScript.Sleep(100)
+	WScript.Sleep(500)
 	if notep then vShell.SendKeys("^v")
-	WScript.Sleep(100)
+	WScript.Sleep(500)
 End If
-
-'set fso=CreateObject("Scripting.FileSystemObject")
-'set f1=fso.CreateTextFile("c:\sum.txt", True)
-'set ts=fso.OpenTextFile("%COMSPEC%\X.txt", ForReading)
-'set s=ts.ReadLine
-
-'MsgBox "Содержимое файла = '" & s & "'"
-'ts.Close
-
-
-
-
-'vShell.Run "calc1.exe", 1
-
