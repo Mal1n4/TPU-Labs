@@ -1,21 +1,12 @@
-<script setup>
-import Header from './components/header.vue'
-import Footer from './components/footer.vue'
-import MainContent from './components/main_page.vue'
-</script>
 
 <template>
-  <header>
-    <Header/>
-  </header>
-  <main>
-    <MainContent/>
-  </main>
-  <footer>
-    <Footer/>
-  </footer>
+  <router-view></router-view>
 </template>
 
 <style scoped>
 
 </style>
+
+<script setup>
+
+</script>

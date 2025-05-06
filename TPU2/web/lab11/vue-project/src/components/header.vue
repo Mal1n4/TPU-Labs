@@ -12,21 +12,23 @@
                 <div class="container align-items-center justify-content-center">
                     <ul class="navbar-nav me-auto align-items-center">
                           <li class="nav-item col-2 ">
-                            <img :src="logoSrc" alt="logo" width="124px" height="73px">
+                            <RouterLink to="/"> <img :src="logoSrc" alt="logo" width="124px" height="73px"></RouterLink>
                         </li>
-                        <li class="nav-item col-8 d-flex justify-content-around">
-                            <div class="d-flex justify-content-start align-items-center">
-                              <a class="nav-link active text-center" aria-current="page" href="#">Еда</a>
-                              <img :src="foodSrc" alt="food" width="63px" height="53px">
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center">
-                              <a class="nav-link active text-center" aria-current="page" href="#">Напитки</a>
+                        <li class="nav-item col-8 d-flex justify-content-around align-items-center">
+                          <RouterLink to="/food"> <div class="d-flex justify-content-start align-items-center gap-2">
+                              <h6>Еда</h6>
+                              <img :src="foodSrc" alt="food" width="63px" height="55px">
+                            </div> </RouterLink>
+
+                            <RouterLink to="/drinks"><div class="d-flex justify-content-center align-items-center gap-2">
+                              <h6>Напитки</h6>
                               <img :src="drinkSrc" alt="drinks" width="59px" height="55px">
-                            </div>
-                            <div class="d-flex justify-content-end align-items-center">
-                              <a class="nav-link active text-center" aria-current="page" href="#">Избранное</a>
+                            </div> </RouterLink>
+
+                            <RouterLink to="/favorites"><div class="d-flex justify-content-end align-items-center gap-2">
+                              <h6>Избранное</h6>
                               <img :src="favSrc" alt="favs" width="55px" height="55px">
-                            </div>
+                            </div> </RouterLink>
                         </li>
                         <li class="nav-item col-2 d-flex justify-content-end align-items-center">
                             <a class="nav-link active text-end" aria-current="page" href="#">Профиль</a>
@@ -45,5 +47,15 @@ nav {
   /* outline: 50px dotted;
   outline-offset: -30px;
   outline-color: #FFF377; */
+}
+.router-link-exact-active,
+.router-link-active {
+  color: inherit; 
+  text-decoration: none; 
+}
+
+a {
+  color: inherit; 
+  text-decoration: none; 
 }
 </style>
