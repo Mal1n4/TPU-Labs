@@ -42,12 +42,10 @@
 
 <style scoped>
 nav {
-  background-color: #77ffa2;
+  background-color: #FFF377;
   height: 90px;
-}
-
-header{
-  border-image-source: url(../assets/border.png);
+  border: 30px solid;
+  border-image: url(../assets/border.png) 30;
   border-image-outset: 10px;
 }
 
