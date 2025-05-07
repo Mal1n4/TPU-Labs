@@ -42,12 +42,15 @@
 
 <style scoped>
 nav {
-  background-color: #FFF377;
+  background-color: #77ffa2;
   height: 90px;
-  /* outline: 50px dotted;
-  outline-offset: -30px;
-  outline-color: #FFF377; */
 }
+
+header{
+  border-image-source: url(../assets/border.png);
+  border-image-outset: 10px;
+}
+
 .router-link-exact-active,
 .router-link-active {
   color: inherit; 
